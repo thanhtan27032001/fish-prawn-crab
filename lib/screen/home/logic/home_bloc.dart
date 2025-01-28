@@ -5,6 +5,7 @@ import 'package:fish_prawn_crab/screen/home/logic/home_state.dart';
 import 'package:fish_prawn_crab/screen/home/widget/round_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeBloc extends Cubit<HomeState> {
   HomeBloc() : super(HomeState.ds());
@@ -51,12 +52,18 @@ class HomeBloc extends Cubit<HomeState> {
       }
     }
 
-    await RoundSelectionRepoImpl().createRoundLog(
+    final result = await RoundSelectionRepoImpl().createRoundLog(
       round: round,
       roundSelections: selections,
     );
 
-    emit(state.copyWith(selectedMap: {}));
+    if (result.isNotEmpty) {
+      Fluttertoast.showToast(
+        msg: "Add round successfully",
+        gravity: ToastGravity.TOP,
+      );
+      emit(state.copyWith(selectedMap: {}));
+    }
   }
 
   void onClear() {

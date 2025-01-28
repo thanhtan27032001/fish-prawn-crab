@@ -38,7 +38,10 @@ class HomeView extends StatelessWidget {
           previous.selectedMap != current.selectedMap,
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: padding),
+          padding: const EdgeInsets.symmetric(
+            horizontal: padding,
+            vertical: padding,
+          ),
           child: Column(
             children: [
               Expanded(
