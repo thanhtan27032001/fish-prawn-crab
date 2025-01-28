@@ -1,5 +1,6 @@
-import 'package:fish_prawn_crab/home/logic/home_bloc.dart';
-import 'package:fish_prawn_crab/home/logic/home_state.dart';
+import 'package:fish_prawn_crab/model/round_selection.dart';
+import 'package:fish_prawn_crab/screen/home/logic/home_bloc.dart';
+import 'package:fish_prawn_crab/screen/home/logic/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +31,7 @@ class HomeView extends StatelessWidget {
             children: [
               Expanded(
                 child: Wrap(
-                  children: BauCuaType.values.map(
+                  children: SelectionType.values.map(
                     (e) {
                       return _buildBauCuaSelector(
                         type: e,
@@ -53,10 +54,10 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _buildBauCuaSelector({
-    required BauCuaType type,
+    required SelectionType type,
     required int selectedTime,
     required double size,
-    required void Function(BauCuaType type) onTap,
+    required void Function(SelectionType type) onTap,
   }) {
     return Container(
       width: size,

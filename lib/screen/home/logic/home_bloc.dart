@@ -1,10 +1,12 @@
-import 'package:fish_prawn_crab/home/logic/home_state.dart';
+import 'package:fish_prawn_crab/model/round_selection.dart';
+import 'package:fish_prawn_crab/repository/round/round_repo_impl.dart';
+import 'package:fish_prawn_crab/screen/home/logic/home_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeBloc extends Cubit<HomeState> {
   HomeBloc() : super(HomeState.ds());
 
-  void onBauCuaTypeTap(BauCuaType type) {
+  void onBauCuaTypeTap(SelectionType type) {
     final currentSelectedTime = state.selectedMap[type] ?? 0;
     if (state.canSelectMore) {
       emit(
@@ -27,7 +29,8 @@ class HomeBloc extends Cubit<HomeState> {
     }
   }
 
-  void onSave() {
+  Future<void> onSave() async {
+    final round = await RoundRepoImpl().createRound();
     emit(state.copyWith(selectedMap: {}));
   }
 

@@ -1,18 +1,10 @@
 import 'package:equatable/equatable.dart';
-
-enum BauCuaType {
-  deer,
-  gourd,
-  chicken,
-  fish,
-  crab,
-  shrimp;
-}
+import 'package:fish_prawn_crab/model/round_selection.dart';
 
 class HomeState extends Equatable {
   static const maxRoundSelection = 3;
 
-  final Map<BauCuaType, int> selectedMap;
+  final Map<SelectionType, int> selectedMap;
 
   const HomeState({required this.selectedMap});
 
@@ -36,7 +28,7 @@ class HomeState extends Equatable {
       ];
 
   HomeState copyWith({
-    Map<BauCuaType, int>? selectedMap,
+    Map<SelectionType, int>? selectedMap,
   }) {
     return HomeState(
       selectedMap: selectedMap ?? this.selectedMap,
