@@ -6,4 +6,6 @@ abstract class RoundLogRepo {
     required RoundModel round,
     required List<RoundSelection> roundSelections,
   });
+
+  Future<List<RoundSelection>> getRoundSelections({required RoundModel round});
 }

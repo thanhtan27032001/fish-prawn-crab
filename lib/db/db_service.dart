@@ -2,7 +2,7 @@ import 'package:fish_prawn_crab/db/db_schema.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
-  static const dbPath = "database.db";
+  static const _dbPath = "database.db";
   static Database? _database;
   static final instance = DatabaseService._();
 
@@ -14,7 +14,7 @@ class DatabaseService {
 
   Future<void> initDatabase() async {
     _database = await openDatabase(
-      dbPath,
+      _dbPath,
       version: 1,
       onCreate: _createDB,
     );

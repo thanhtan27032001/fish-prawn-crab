@@ -2,9 +2,9 @@ import 'package:fish_prawn_crab/db/db_schema.dart';
 import 'package:fish_prawn_crab/db/db_service.dart';
 import 'package:fish_prawn_crab/model/round.dart';
 import 'package:fish_prawn_crab/model/round_selection.dart';
-import 'package:fish_prawn_crab/repository/row/round_log_repo.dart';
+import 'package:fish_prawn_crab/repository/row/round_selection_repo.dart';
 
-class RoundLogRepoImpl extends RoundLogRepo {
+class RoundSelectionRepoImpl extends RoundLogRepo {
   static final table = DatabaseSchema.tableRoundLog;
 
   @override
@@ -27,6 +27,29 @@ class RoundLogRepoImpl extends RoundLogRepo {
       if (records != null) {
         return records.map((e) => RoundSelection.fromMap(e)).toList();
       }
+    } catch (e) {
+      print(e);
+    }
+    return [];
+  }
+
+  @override
+  Future<List<RoundSelection>> getRoundSelections({
+    required RoundModel round,
+  }) async {
+    try {
+      final db = DatabaseService.instance.database;
+      final records = await db?.query(
+        table.name,
+        where: 'round_id = ?',
+        whereArgs: [round.id],
+      );
+
+      return records!.map(
+        (e) {
+          return RoundSelection.fromMap(e);
+        },
+      ).toList();
     } catch (e) {
       print(e);
     }

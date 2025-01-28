@@ -1,7 +1,9 @@
 import 'package:fish_prawn_crab/model/round_selection.dart';
 import 'package:fish_prawn_crab/repository/round/round_repo_impl.dart';
-import 'package:fish_prawn_crab/repository/row/round_log_repo_impl.dart';
+import 'package:fish_prawn_crab/repository/row/round_selection_repo_impl.dart';
 import 'package:fish_prawn_crab/screen/home/logic/home_state.dart';
+import 'package:fish_prawn_crab/screen/home/widget/round_history.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeBloc extends Cubit<HomeState> {
@@ -49,7 +51,7 @@ class HomeBloc extends Cubit<HomeState> {
       }
     }
 
-    final result = await RoundLogRepoImpl().createRoundLog(
+    await RoundSelectionRepoImpl().createRoundLog(
       round: round,
       roundSelections: selections,
     );
@@ -59,5 +61,17 @@ class HomeBloc extends Cubit<HomeState> {
 
   void onClear() {
     emit(state.copyWith(selectedMap: {}));
+  }
+
+  Future<void> showBottomSheetAllLogs(BuildContext context) async {
+    final allRound = await RoundRepoImpl().getAllRound();
+    if (!context.mounted) return;
+    showBottomSheet(
+      context: context,
+      builder: (context) {
+        return RoundHistoryWidget(allRound: allRound);
+      },
+    );
+    // print(allRound.length);
   }
 }

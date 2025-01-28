@@ -1,18 +1,27 @@
 import 'dart:convert';
 
+import 'package:fish_prawn_crab/model/round_selection.dart';
+
 class RoundModel {
   final int? id;
   final DateTime createdDate;
+  final List<RoundSelection> selections;
 
-  RoundModel({required this.id, required this.createdDate});
+  RoundModel({
+    required this.id,
+    required this.createdDate,
+    this.selections = const [],
+  });
 
   RoundModel copyWith({
     int? id,
     DateTime? createdDate,
+    List<RoundSelection>? selections,
   }) {
     return RoundModel(
       id: id ?? this.id,
       createdDate: createdDate ?? this.createdDate,
+      selections: selections ?? this.selections,
     );
   }
 

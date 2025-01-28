@@ -12,6 +12,18 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Bau cua log"),
+        actions: [
+          Builder(
+            builder: (context) {
+              return IconButton(
+                onPressed: () {
+                  context.read<HomeBloc>().showBottomSheetAllLogs(context);
+                },
+                icon: const Icon(Icons.history),
+              );
+            },
+          ),
+        ],
       ),
       body: _buildBody(context),
     );
