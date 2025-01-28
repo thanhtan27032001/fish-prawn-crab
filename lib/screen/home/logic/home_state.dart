@@ -14,12 +14,20 @@ class HomeState extends Equatable {
     );
   }
 
-  bool get canSelectMore {
+  int get sumSelectedTime {
     int sumSelectedTime = 0;
     for (final time in selectedMap.values) {
       sumSelectedTime += time;
     }
+    return sumSelectedTime;
+  }
+
+  bool get canSelectMore {
     return sumSelectedTime < maxRoundSelection;
+  }
+
+  bool get canSave {
+    return sumSelectedTime == maxRoundSelection;
   }
 
   @override

@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget {
                   ).toList(),
                 ),
               ),
-              _buildActionButtons(context),
+              _buildActionButtons(context, state),
             ],
           ),
         );
@@ -92,7 +92,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  _buildActionButtons(BuildContext context) {
+  _buildActionButtons(BuildContext context, HomeState state) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
       child: Row(
@@ -110,6 +110,7 @@ class HomeView extends StatelessWidget {
             context,
             label: "Save",
             backgroundColor: Colors.green,
+            enabled: state.canSave,
             onTap: () {
               context.read<HomeBloc>().onSave();
             },
@@ -125,15 +126,16 @@ class HomeView extends StatelessWidget {
     required void Function() onTap,
     required Color backgroundColor,
     Color labelColor = Colors.white,
+    bool enabled = true,
   }) {
     return Expanded(
       child: InkWell(
-        onTap: onTap,
+        onTap: enabled ? onTap : null,
         borderRadius: BorderRadius.circular(4),
         child: Ink(
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
-            color: backgroundColor,
+            color: enabled ? backgroundColor : Colors.grey[300],
             borderRadius: BorderRadius.circular(4),
           ),
           child: Center(
